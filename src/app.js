@@ -6,26 +6,8 @@ const app = express()
 app.use(express.json())
 app.use(cors())
 
-const users = [
-    {
-        username: "Raquel",
-        avatar: "https://image.cachorrogato.com.br/textimages/fotos-gatinhos-rindo.jpg"
-    },
-    {
-        username: 'bobesponja', 
-        avatar: "https://super.abril.com.br/wp-content/uploads/2020/09/04-09_gato_SITE.jpg?quality=70&strip=info" 
-    }
-]
-const tweets = [
-    {
-        username: "Raquel",
-        tweet: "Oi"
-    }, 
-    {
-        username: "bobesponja",
-        tweet: "eu amo o hub"
-    }
-]
+const users = []
+const tweets = []
 
 app.get("/tweets", (req, res) => {
     const {limite} = req.query
@@ -33,8 +15,16 @@ app.get("/tweets", (req, res) => {
     const tweetsReverse = [{...tweets}]
     const ultimosTweets = tweetsReverse.reverse().slice(0, parseInt(limite))
 
-    console.log(tweets)
-    res.send(tweets)
+    const resposta = []
+    ultimosTweets.map(t => {
+        resposta.push({
+            username: t.user.username,
+            avatar: t.user.avatar,
+            tweet: t.tweet
+        })
+    })
+    res.send(resposta)
+
 })
 
 app.post("/sign-up", (req, res) => {
