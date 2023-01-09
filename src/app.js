@@ -30,10 +30,11 @@ const tweets = [
 app.get("/tweets", (req, res) => {
     const {limite} = req.query
 
-    const ultimosTweets = tweets.slice(0, parseInt(limite))
+    const tweetsReverse = [{...tweets}]
+    const ultimosTweets = tweetsReverse.reverse().slice(0, parseInt(limite))
 
-    console.log(ultimosTweets)
-    res.send(ultimosTweets)
+    console.log(tweets)
+    res.send(tweets)
 })
 
 app.post("/sign-up", (req, res) => {
@@ -51,13 +52,15 @@ app.post("/sign-up", (req, res) => {
 
 app.post("/tweets", (req, res) => {
     const dados = req.body
+    
     console.log(dados)
     const unloggedUser = tweets.find(t => t.username === dados.username)
 
     if (!unloggedUser){
         res.send("UNAUTHORIZED")
         return
-    }    
+    }
+    
 
     tweets.push(dados)
     res.send("Ok")
