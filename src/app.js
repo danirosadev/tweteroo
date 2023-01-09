@@ -11,7 +11,7 @@ const tweets = []
 
 app.get("/tweets", (req, res) => {
     const {limite} = req.query
-
+    limite = 10
     const tweetsReverse = [{...tweets}]
     const ultimosTweets = tweetsReverse.reverse().slice(0, parseInt(limite))
 
