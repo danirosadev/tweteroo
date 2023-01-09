@@ -28,7 +28,12 @@ const tweets = [
 ]
 
 app.get("/tweets", (req, res) => {
-    res.send(tweets)
+    const {limite} = req.query
+
+    const ultimosTweets = tweets.slice(0, parseInt(limite))
+
+    console.log(ultimosTweets)
+    res.send(ultimosTweets)
 })
 
 app.post("/sign-up", (req, res) => {
